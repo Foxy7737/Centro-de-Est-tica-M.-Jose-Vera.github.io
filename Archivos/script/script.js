@@ -11,29 +11,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
     const navHTML = `
-    <nav class="barra">
-       <div class="logo">
-    <img src="Archivos/Imagenes/icono.ico" alt="TuMarca" class="logo-img">
-</div>
+<nav class="barra">
+    <div class="logo">
+    <a href="index.html">
+        <img src="Archivos/Imagenes/icono.ico" alt="TuMarca" class="logo-img">
+        </a>
+    </div>
+    
+    <ul class="nav-menu">
+        <li><a href="tratamientos.html" class="${currentPage === 'tratamientos.html' ? 'activo' : ''} letra">Tratamientos</a></li>
+        <li><a href="aparatologia.html" class="${currentPage === 'aparatologia.html' ? 'activo' : ''} letra">Aparatologia manos libres</a></li>
+        <li><a href="Tienda.html" class="${currentPage === 'Tienda.html' ? 'activo' : ''} letra">Tienda</a></li>
+        <li><a href="contacto.html" class="${currentPage === 'contacto.html' ? 'activo' : ''} letra">Contacto</a></li>
         
-        <div class="nav-right">
-            <button class="menu-toggle" aria-label="Abrir menú">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-
-        <ul class="nav-menu">
-            <li><a href="index.html" class="${currentPage === 'index.html' ? 'activo' : ''} letra">Inicio</a></li>
-            <li><a href="tratamientos.html" class="${currentPage === 'tratamientos.html' ? 'activo' : ''} letra">Tratamientos</a></li>
-            <li><a href="aparatologia.html" class="${currentPage === 'aparatologia.html' ? 'activo' : ''} letra">Aparatologia manos libres</a></li>
-            <li><a href="Tienda.html" class="${currentPage === 'Tienda.html' ? 'activo' : ''} letra">Tienda</a></li>
-            <li><a href="contacto.html" class="${currentPage === 'contacto.html' ? 'activo' : ''} letra">Contacto</a></li>
-             <a href="carrito.html" class="cart-icon ${currentPage === 'carrito.html' ? 'activo' : ''}">
+        <!-- Carrito como ítem del menú (solo visible en desktop) -->
+        <li class="cart-item-desktop">
+            <a href="Carrito.html" class="${currentPage === 'Carrito.html' ? 'activo' : ''} letra cart-icon">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-count" id="cart-count">0</span>
             </a>
-        </ul>
-    </nav>
+        </li>
+    </ul>
+
+    <!-- Zona derecha: solo hamburguesa en móvil + carrito móvil -->
+    <div class="nav-right">
+        <!-- Carrito visible SOLO en móvil -->
+        <a href="Carrito.html" class="cart-icon cart-mobile ${currentPage === 'Carrito.html' ? 'activo' : ''}">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cart-count-mobile">0</span>
+        </a>
+        
+        <button class="menu-toggle" aria-label="Abrir menú">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
 `;
 
     document.body.insertAdjacentHTML('afterbegin', navHTML);
@@ -80,12 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ── Función compartida: contador del carrito (todas las páginas) ───────
 function actualizarContadorCarrito() {
-    const countElement = document.getElementById('cart-count');
-    if (!countElement) return;
-
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     let total = carrito.reduce((sum, item) => sum + (item.cantidad || 1), 0);
-    countElement.textContent = total;
+
+    const countDesktop = document.getElementById('cart-count');
+    const countMobile = document.getElementById('cart-count-mobile');
+
+    if (countDesktop) countDesktop.textContent = total;
+    if (countMobile) countMobile.textContent = total;
 }
 
 // ── Función compartida: añadir al carrito ──────────────────────────────

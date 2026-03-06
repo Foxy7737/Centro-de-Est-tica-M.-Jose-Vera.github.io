@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="Archivos/css/style.css" />
     <!-- Fuente consistente con el resto del sitio -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!--Esto es el icono de la pagina web-->
     <link rel="icon" href="Archivos/Imagenes/icono.ico" type="image/x-icon">
 </head>
 
@@ -33,14 +33,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Correo electrónico *</label>
-                        <input type="email" id="email" name="email" required placeholder="tuemail@ejemplo.com">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="tuemail@ejemplo.com">
                         <span class="error-message" id="error-email"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" name="telefono" placeholder="+34 6XX XXX XXX">
+                        <label for="telefono">Teléfono *</label>
+                        <input type="tel" id="telefono" name="telefono" required placeholder="+34 6XX XXX XXX">
+                        <span class="error-telefono" id="error-telefono"></span>
                     </div>
 
                     <div class="form-group">
@@ -78,7 +79,14 @@
                     <div>
                         <strong>Teléfono</strong>
                         <p>+34 666 39 38 56</p>
-                        <small>Lunes a viernes 9:00 - 18:00</small>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <strong>E-MAIL</strong>
+                        <p>mjvs1979@gmail.com</p>
                     </div>
                 </div>
 
@@ -94,7 +102,7 @@
                     <i class="fas fa-clock"></i>
                     <div>
                         <strong>Horario de atención</strong>
-                        <p>Lunes - Viernes: 9:00 - 18:00<br>Sábados: 10:00 - 14:00</p>
+                        <p>Lunes: 16:00 - 20:30<br>Martes y Jueves: 09:00 - 14:00 y 16:00 - 18:00<br>Miercoles y Viernes: 09:00 - 14:00 y 16:00 - 20:30</p>
                     </div>
                 </div>
             </aside>

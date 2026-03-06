@@ -285,6 +285,103 @@ footer {
 }
 
 /* =====================================================
+   AJUSTES PARA CARRITO EN NAVEGACIÓN
+   ===================================================== */
+
+/* Carrito como ítem normal del menú en desktop */
+.cart-item-desktop {
+    display: none;
+    /* lo controlamos con media query */
+}
+
+.cart-item-desktop a.cart-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+}
+
+/* Carrito flotante en móvil (en .nav-right) */
+.cart-mobile {
+    display: none;
+    /* oculto en desktop */
+    position: relative;
+    font-size: 1.7rem;
+}
+
+/* =====================================================
+   MEDIA QUERIES - CONTROL DE VISIBILIDAD
+   ===================================================== */
+
+@media (min-width: 769px) {
+
+    /* En desktop: mostramos carrito dentro del menú, ocultamos el móvil */
+    .cart-item-desktop {
+        display: list-item;
+    }
+
+    .cart-mobile {
+        display: none !important;
+    }
+
+    /* Ajuste visual para que el carrito se vea como los otros enlaces */
+    .cart-item-desktop a.cart-icon {
+        font-size: 1.1rem;
+    }
+
+    .cart-item-desktop a.cart-icon i {
+        font-size: 1.25rem;
+    }
+
+    .cart-item-desktop .cart-count {
+        top: -6px;
+        right: -10px;
+        font-size: 0.7rem;
+        min-width: 16px;
+        padding: 2px 5px;
+    }
+
+    /* Espacio final del menú */
+    .nav-menu {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* En móvil: mostramos el carrito en la barra superior */
+    .cart-mobile {
+        display: block !important;
+    }
+
+    .cart-item-desktop {
+        display: none !important;
+    }
+
+    /* Ajustes menores de espaciado */
+    .nav-right {
+        gap: 1.1rem;
+    }
+
+    .cart-mobile .cart-count {
+        top: -9px;
+        right: -9px;
+        font-size: 0.78rem;
+    }
+}
+
+/* Estilo consistente del carrito (hover/activo) ya lo tienes, pero reforzamos */
+.cart-icon:hover,
+.cart-icon.activo {
+    color: #ff6200 !important;
+}
+
+.cart-icon:hover i,
+.cart-icon.activo i {
+    color: #ff6200 !important;
+}
+
+/* =====================================================
    PÁGINA INDEX.HTML
    ===================================================== */
 
@@ -360,72 +457,107 @@ footer {
 
 /* Galería con Swiper */
 .gallery-section {
-    padding: 4rem 1rem;
+    padding: 3rem 1rem 3.5rem;
+    /* ← menos espacio arriba y abajo */
     background: #f9f7f4;
     text-align: center;
 }
 
 .gallery-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.8rem;
-    color: #333;
+    font-size: 2.3rem;
+    /* un poco más pequeño */
+    margin-bottom: 0.7rem;
 }
 
 .gallery-section .subtitle {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 2.5rem;
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
 }
 
 .myGallerySwiper {
     width: 100%;
-    height: 520px;
-    border-radius: 16px;
+    max-width: 1100px;
+    /* evita que se estire demasiado en pantallas anchas */
+    height: auto;
+    /* ← importante: deja que la imagen decida */
+    max-height: 75vh;
+    /* tope razonable → ~75-80% de la pantalla visible */
+    margin: 0 auto 1.5rem;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
+    transition: height 0.4s ease;
+    /* cambio suave si usas autoHeight en JS */
 }
 
 .swiper-slide {
-    position: relative;
+    width: 100% !important;
+    height: auto !important;
+    /* ← clave para fotos verticales */
+    min-height: 200px;
+    /* evita que slides muy pequeñas queden feas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f6f2;
 }
 
 .swiper-slide img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-height: 75vh;
+    /* mismo tope que el contenedor */
+    object-fit: contain;
+    object-position: center;
+    display: block;
 }
 
+/* Caption más adaptable */
 .slide-caption {
     position: absolute;
-    bottom: 20px;
+    bottom: 14px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, 0.68);
     color: white;
-    padding: 12px 28px;
-    border-radius: 30px;
-    font-size: 1.2rem;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 1.05rem;
     font-weight: 500;
     white-space: nowrap;
-    max-width: 90%;
+    max-width: 85%;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-    color: white !important;
-    background: rgba(196, 139, 111, 0.7) !important;
-    width: 50px !important;
-    height: 50px !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: rgba(196, 139, 111, 0.75) !important;
     border-radius: 50% !important;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after {
-    font-size: 1.5rem !important;
+    font-size: 1.4rem !important;
 }
 
-.swiper-pagination-bullet-active {
-    background: #c48b6f !important;
+/* En móviles más compacto todavía */
+@media (max-width: 768px) {
+    .gallery-section {
+        padding: 2.5rem 1rem 3rem;
+    }
+
+    .myGallerySwiper {
+        max-height: 58vh;
+        /* aún más pequeño en móvil */
+    }
+
+    .slide-caption {
+        font-size: 0.98rem;
+        padding: 8px 18px;
+        bottom: 14px;
+    }
 }
 
 /* =====================================================
